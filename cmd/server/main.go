@@ -26,7 +26,9 @@ func main(){
 	pr := r.Group("/tickets")
 	{
 		pr.GET("/list", controller.GetAll())
-		pr.GET("/:country", controller.GetTicketByDestination())
+		pr.GET("/getByCountry/:country", controller.GetTicketByDestination())
+		pr.GET("/getCountByCountry/:country", controller.GetCountTicketsByDestination())
+		pr.GET("/getAVGByCountry/:country", controller.GetAVGTicketByDestination())
 	}
 	r.Run()
 

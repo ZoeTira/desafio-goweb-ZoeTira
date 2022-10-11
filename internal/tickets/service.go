@@ -9,6 +9,8 @@ import (
 type Service interface{
 	GetAll()([]domain.Ticket, error)
 	GetTicketByDestination(destination string)([]domain.Ticket, error)
+	GetCountTicketsByDestination(destination string)(int, error)
+	GetAVGTicketByDestination(destination string)(float64, error)
 	
 }
 
@@ -23,27 +25,44 @@ func NewService(r Repository) Service{
 }
 
 func (s *service) GetAll()([]domain.Ticket, error){
-	t,err := s.repository.GetAll()
+	ticketList,err := s.repository.GetAll()
 	if(err != nil){
 		return []domain.Ticket{}, err
 	}
 
-	if len(t) == 0{
+	if len(ticketList) == 0{
 		return []domain.Ticket{}, fmt.Errorf("empty ticket list")
 	}
 
-	return t, nil
+	return ticketList, nil
 
 }
 
 func (s *service) GetTicketByDestination(destination string)([]domain.Ticket, error){
-	t, err := s.repository.GetTicketByDestination(destination)
+	tickets, err := s.repository.GetTicketByDestination(destination)
 	if err != nil {
 		return []domain.Ticket{}, err
 	}
-	if len(t) == 0{
+	if len(tickets) == 0{
 		return []domain.Ticket{}, fmt.Errorf("empty ticket list for destination: %s", destination)
 	}
 	
-	return t, nil
+	return tickets, nil
+}
+
+func (s *service)GetCountTicketsByDestination(destination string)(int, error){
+	countTickets, err := s.repository.GetCountTicketsByDestination(destination)
+	if(err != nil){
+		return 0, err
+	}
+	return countTickets, nil
+}
+
+func (s *service)GetAVGTicketByDestination(destination string)(float64, error){
+	avgTickets, err := s.repository.GetAVGTicketByDestination(destination)
+	if(err != nil){
+		return 0, err
+	}
+	return avgTickets, nil
+	
 }
