@@ -1,33 +1,48 @@
 package tickets
 
 import (
-	"fmt"
+//	"fmt"
+	"github.com/ZoeTira/desafio-goweb-ZoeTira/pkg/store"
 	"github.com/ZoeTira/desafio-goweb-ZoeTira/domain"
 
+
 )
+var ticketList []domain.Ticket
 
 type Repository interface{
 	GetAll()([]domain.Ticket, error)
-	GetTicketByDestination(destination string)([]domain.Ticket)
+	GetTicketByDestination(destination string)([]domain.Ticket, error)
 }
 
 type repository struct{
-	//Puedo agregarle la bd
+	db store.Store
 }
 
-func NewRepository(/*aca iria bd*/) Repository{
+func NewRepository(db store.Store) Repository{
 	return &repository{
 		/*aca iria bd*/
+		db: db,
 	}
 }
 
-func (r *repository)GetAll()([]domain.Ticket, error){
-	var ps []domain.Ticket
-	//Leo t le paso donde guardar
-	err := r.db.Read(&ps)
+func (r *repository) GetAll()([]domain.Ticket, error){
+	//Leo y le paso donde guardar
+	err := r.db.Read(&ticketList)
 	if err != nil {
-		return []Product{}, err
+		return []domain.Ticket{}, err
 	}
-	return ps, nil
+//Verificar que no sea nula la list
 
+	//Retorno todos los tickets
+	return ticketList, nil
+
+}
+
+func (r *repository) GetTicketByDestination(destination string)([]domain.Ticket, error){
+	err := r.db.Read(&ticketList)
+	if err != nil {
+		return []domain.Ticket{}, err
+	}
+	
+	return ticketList, nil
 }
