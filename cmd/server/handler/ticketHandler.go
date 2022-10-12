@@ -23,7 +23,15 @@ func NewTicket(p tickets.Service) *Ticket{
 	}
 	
 }
-
+// ListTickets godoc
+// @Summary List tickets
+// @Tags Tickets
+// @Description get tickets
+// @Accept  json
+// @Produce  json
+// @Param token header string true "token"
+// @Success 200 {object} []domain.Ticket
+// @Router /tickets/list [get]
 func(ticket *Ticket) GetAll() gin.HandlerFunc{
 	return func(ctx *gin.Context){
 		token := ctx.GetHeader("token")
@@ -45,6 +53,15 @@ func(ticket *Ticket) GetAll() gin.HandlerFunc{
 	}
 }
 
+// ListTicketsByDestination godoc
+// @Summary List tickets by destination
+// @Tags Tickets
+// @Description get tickets by destination
+// @Accept  json
+// @Produce  json
+// @Param token header string true "token"
+// @Success 200 {object} []domain.Ticket
+// @Router /tickets/getByCountry/:country [get]
 func (ticket *Ticket) GetTicketByDestination() gin.HandlerFunc{
 	return func(ctx *gin.Context){
 		token := ctx.GetHeader("token")
@@ -68,6 +85,15 @@ func (ticket *Ticket) GetTicketByDestination() gin.HandlerFunc{
 	}
 }
 
+// CountTicketsByDestination godoc
+// @Summary Count tickets by destination
+// @Tags Tickets
+// @Description get count of tickets by destination
+// @Accept  json
+// @Produce  json
+// @Param token header string true "token"
+// @Success 200 {object} []domain.Ticket
+// @Router /tickets/getCountByCountry/:country [get]
 func (ticket *Ticket) GetCountTicketsByDestination() gin.HandlerFunc {
 	return func(ctx *gin.Context){
 		token := ctx.GetHeader("token")
@@ -87,6 +113,15 @@ func (ticket *Ticket) GetCountTicketsByDestination() gin.HandlerFunc {
 	
 }
 
+// AVGTicketsByDestination godoc
+// @Summary AVG tickets by destination
+// @Tags Tickets
+// @Description get average number of tickets per destination compared to all tickets
+// @Accept  json
+// @Produce  json
+// @Param token header string true "token"
+// @Success 200 {object} []domain.Ticket
+// @Router /tickets/getAVGByCountry/:country [get]
 func (ticket *Ticket)GetAVGTicketByDestination() gin.HandlerFunc{
 	return func(ctx *gin.Context){
 		token := ctx.GetHeader("token")

@@ -1,0 +1,100 @@
+definitions:
+  domain.Ticket:
+    properties:
+      country:
+        type: string
+      date:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      name:
+        type: string
+      price:
+        type: number
+      time:
+        type: string
+    type: object
+info:
+  contact:
+    name: API Support
+    url: https://developers.mercadolibre.com.ar/support
+  description: This API handles tickets.
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: https://developers.mercadolibre.com.ar/es_ar/terminos-y-condiciones
+  title: Challenge GoWeb API
+  version: "1.0"
+paths:
+  /tickets/getAVGByCountry/:country:
+    get:
+      consumes:
+      - application/json
+      description: get average number of tickets per destination compared to all tickets
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Ticket'
+            type: array
+      summary: AVG tickets by destination
+      tags:
+      - Tickets
+  /tickets/getByCountry/:country:
+    get:
+      consumes:
+      - application/json
+      description: get tickets by destination
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Ticket'
+            type: array
+      summary: List tickets by destination
+      tags:
+      - Tickets
+  /tickets/getCountByCountry/:country:
+    get:
+      consumes:
+      - application/json
+      description: get count of tickets by destination
+      parameters:
+      - description: token
+        in: header
+        name: token
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/domain.Ticket'
+            type: array
+      summary: Count tickets by destination
+      tags:
+      - Tickets
+swagger: "2.0"
